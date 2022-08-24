@@ -16,6 +16,8 @@ let isContainAncient = false;
 const difficultyLevel = document.querySelector('.difficulty-container');
 const difficulty =document.querySelectorAll('.difficulty')
 
+const deck = document.querySelector('.deck')
+const lastCard = document.querySelector('.last-card')
 
 // console.log(ancientsData[0].id);
 
@@ -110,6 +112,7 @@ function retry (){
             shuffle.classList.remove('active')
             deckСontainer.classList.add('active')
             ancientCoat ();
+            shuffleEnd()
             console.log(stageOneDeckStack)
             console.log(stageTwoDeckStack)
             console.log(stageThreeDeckStack)
@@ -119,12 +122,12 @@ function retry (){
 
 
 
-            const arrBlue = [arrBlueSnow, arrBlueNorml ,arrBlueOctopus] //[0] - снежинка, [1] - норрмал, [2] - щупальцы
-            const arrBrown = [[],[],[]]
-            const arrGreen = [[],[],[]]
-            const arrStageOne = [[],[],[]]
-            const arrStageTwo = [[],[],[]]
-            const arrStageThree = [[],[],[]]
+            // const arrBlue = [arrBlueSnow, arrBlueNorml ,arrBlueOctopus] //[0] - снежинка, [1] - норрмал, [2] - щупальцы
+            // const arrBrown = [[],[],[]]
+            // const arrGreen = [[],[],[]]
+            // const arrStageOne = [[],[],[]]
+            // const arrStageTwo = [[],[],[]]
+            // const arrStageThree = [[],[],[]]
  
         
 
@@ -352,8 +355,21 @@ function retry (){
             }})
             
         }
-             
+          function shuffleEnd() {
+            shuffleArr(stageOneDeckStack)
+            shuffleArr(stageTwoDeckStack)
+            shuffleArr(stageThreeDeckStack)
+          }   
 
+        deck.addEventListener('click', function(event){
+         if (stageOneDeckStack.length > 0){
+            stageOneDeckStack.pop
+            lastCard.style.backgroundImage = "url('')"
+
+
+         }
+
+        })
 
 
 // function abc() {
