@@ -76,3 +76,7 @@ const cardsData = [
 ]
 
 export default cardsData
+
+// let hardCard = cardsData.filter((card) => card.difficulty === 'hard');
+
+// document.querySelector('div').style.backgroundImage = `url(${hardCard[random(12)].cardFace})`
