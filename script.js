@@ -28,9 +28,9 @@ const deckСontainer = document.querySelector('.deck-container')
 
 
 const mainDeckStack = []
-const stageOneDeckStack = []
-const stageTwoDeckStack = []
-const stageThreeDeckStack = []
+let stageOneDeckStack = []
+let stageTwoDeckStack = []
+let stageThreeDeckStack = []
 
 let arrBlueSnow = ['blue3', 'blue4', 'blue5', 'blue10']
 let arrBlueNorml = ['blue7', 'blue9', 'blue11', 'blue12']
@@ -363,13 +363,31 @@ function retry (){
 
         deck.addEventListener('click', function(event){
          if (stageOneDeckStack.length > 0){
-            stageOneDeckStack.pop
-            lastCard.style.backgroundImage = "url('')"
+            let lastImg = stageOneDeckStack.pop();
+            lastCard.style.backgroundImage = `url(./assets/MythicCards/allcards/${lastImg}.png)`
 
+         }
+         else {
+            if (stageTwoDeckStack.length > 0){
+                let lastImg = stageTwoDeckStack.pop();
+                lastCard.style.backgroundImage = `url(./assets/MythicCards/allcards/${lastImg}.png)`
+    
+             }
+             else {
+                if (stageThreeDeckStack.length > 0){
+                    let lastImg = stageThreeDeckStack.pop();
+                    lastCard.style.backgroundImage = `url(./assets/MythicCards/allcards/${lastImg}.png)`
+        
+                 }
+             
 
          }
 
-        })
+        }
+        // console.log(stageOneDeckStack.pop())
+        // console.log(stageTwoDeckStack.pop())
+        // console.log(stageThreeDeckStack.pop())
+    })
 
 
 // function abc() {
