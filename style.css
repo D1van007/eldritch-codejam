@@ -111,7 +111,12 @@ code{font-family:source-code-pro,Menlo,Monaco,Consolas,Courier New,monospace}
     background-color:blue
 }
 .deck-container .deck{
-    cursor:pointer
+    cursor:pointer;
+    background-image: url(./assets/mythicCardBackground.png);
+    
+}
+.deck.deactive {
+    background-image: none
 }
 .deck-container .deck,.deck-container .last-card{
     background-size:cover;

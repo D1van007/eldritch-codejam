@@ -17,6 +17,9 @@ const difficulty =document.querySelectorAll('.difficulty')
 
 const deck = document.querySelector('.deck')
 const lastCard = document.querySelector('.last-card')
+const stageTextOne = document.querySelector('.one')
+const stageTextTwo= document.querySelector('.two')
+const stageTextThree = document.querySelector('.three')
 
 let isContainDifficulty = false;
 
@@ -43,6 +46,12 @@ function retry (){
     stageOneDeckStack.length = 0;
     stageTwoDeckStack.length = 0;
     stageThreeDeckStack.length = 0;
+    deck.classList.remove('deactive');
+    lastCard.style.backgroundImage = `none`;
+    stageTextOne.classList.remove('done')
+    stageTextTwo.classList.remove('done')
+    stageTextThree.classList.remove('done')
+
     arrBlueSnow = ['blue3', 'blue4', 'blue5', 'blue10'];
     arrBlueNorml = ['blue7', 'blue9', 'blue11', 'blue12'];
     arrBlueOctopus= ['blue1', 'blue2', 'blue6', 'blue8'];
@@ -65,15 +74,14 @@ function retry (){
               ancientCards.forEach(function(e) {
                 if(e.classList.contains('active')) {
                     isContainAncient = true;
-
-                    return;
-
                 }
               });
               if (isContainAncient) {
                 document.querySelector('.difficulty-container').classList.add('active');
                 deckСontainer.classList.remove('active')
                 retry ()
+            } if (isContainAncient && isContainDifficulty) {
+                shuffle.classList.add('active');
             }
             
         });
@@ -99,13 +107,11 @@ function retry (){
             }
         });
 
-      
-
         shuffle.addEventListener('click', () => {
             shuffle.classList.remove('active')
             deckСontainer.classList.add('active')
             ancientCoat ();
-            shuffleEnd()
+            // shuffleEnd()
             console.log(stageOneDeckStack)
             console.log(stageTwoDeckStack)
             console.log(stageThreeDeckStack)
@@ -120,7 +126,6 @@ function retry (){
                 }
               }
               
-
 function creatArrColor (arrayStage, arrColorSnow, arrColorNorml, arrColorOctopus, q) {
     for (let i = 1; i<=q; i++){
     let x = Math.floor(Math.random() * (4 - 1)) + 1
@@ -135,7 +140,6 @@ function creatArrColor (arrayStage, arrColorSnow, arrColorNorml, arrColorOctopus
     } 
 }
 }
-
 
 //Coaatt
 const first = document.querySelector('.first')
@@ -154,16 +158,16 @@ function Coaatt (i) {
     third.querySelector('.brown').textContent = ancientsData[i].thirdStage.brownCards;
     third.querySelector('.blue').textContent = ancientsData[i].thirdStage.blueCards;
 
-    // return [CoatFirstBrown, CoatFirstGreen, CoatFirstBlue, CoatSecondBrown, CoatSecondGreen, CoatSecondBlue, CoatThirdBrown, CoatThirdGreen, CoatThirdBlue]
-
 }
-// let [CoatFirstBrown, CoatFirstGreen, CoatFirstBlue, CoatSecondBrown, CoatSecondGreen, CoatSecondBlue, CoatThirdBrown, CoatThirdGreen, CoatThirdBlue] = Coaatt ()
-// console.log(Coaatt(0))
 
-
+function shuffleEnd() {
+    shuffleArr(stageOneDeckStack)
+    shuffleArr(stageTwoDeckStack)
+    shuffleArr(stageThreeDeckStack)
+  }   
             //Coat stage
 
-            function creatDeckStage (){
+            function creatDeck (){
                 let CoatFirstGreen = first.querySelector('.green').textContent
                 let CoatFirstBrown = first.querySelector('.brown').textContent
                 let CoatFirstBlue = first.querySelector('.blue').textContent 
@@ -193,10 +197,10 @@ function Coaatt (i) {
                     //green
                             creatArrColor (stageOneDeckStack, arrGreenSnow, arrGreenNorml, arrGreenOctopus, CoatFirstGreen)
                     //blue
-                            creatArrColor (stageOneDeckStack, arrBlueSnow, arrBlueNorml, arrBlueOctopus, CoatFirstBlue)                       
+                            creatArrColor (stageOneDeckStack, arrBlueSnow, arrBlueNorml, arrBlueOctopus, CoatFirstBlue)   
+                            
+                            shuffleEnd()
                             }  
-                    
-               
 
             function ancientCoat () {
                 shuffleArr(arrBrownSnow)
@@ -205,24 +209,17 @@ function Coaatt (i) {
                 ancientCards.forEach(function(e) {
                     if(e.contains(azathoth) && e.classList.contains('active')) {
                         Coaatt (0);
-                        creatDeckStage () } 
+                        creatDeck () } 
                     if(e.contains(cthulthu) && e.classList.contains('active')) {
                         Coaatt (1);
-                        creatDeckStage ()}
+                        creatDeck ()}
                     if(e.contains(iogSothoth) && e.classList.contains('active')) {
                         Coaatt (2);
-                        creatDeckStage ()}
+                        creatDeck ()}
                     if(e.contains(shubNiggurath) && e.classList.contains('active')) {
                         Coaatt (3);
-                        creatDeckStage ()}  
+                        creatDeck ()}  
             })}
-            
-        
-          function shuffleEnd() {
-            shuffleArr(stageOneDeckStack)
-            shuffleArr(stageTwoDeckStack)
-            shuffleArr(stageThreeDeckStack)
-          }   
 
         deck.addEventListener('click', function(){
          if (stageOneDeckStack.length > 0){
@@ -237,7 +234,9 @@ function Coaatt (i) {
             if(lastImg.includes('blue')){
                 first.querySelector('.blue').textContent = first.querySelector('.blue').textContent - 1
             }
-
+         if (stageOneDeckStack.length == 0) {
+            stageTextOne.classList.add('done')
+         }
          }
          else {
             if (stageTwoDeckStack.length > 0){
@@ -252,8 +251,10 @@ function Coaatt (i) {
                 if(lastImg.includes('blue')){
                     second.querySelector('.blue').textContent = second.querySelector('.blue').textContent - 1
                 }
-             }
-             else {
+                if (stageTwoDeckStack.length == 0) {
+                    stageTextTwo.classList.add('done')
+                    }   
+             } else {
                 if (stageThreeDeckStack.length > 0){
                     let lastImg = stageThreeDeckStack.pop();
                     lastCard.style.backgroundImage = `url(./assets/MythicCards/allcards/${lastImg}.png)`
@@ -266,12 +267,14 @@ function Coaatt (i) {
                     if(lastImg.includes('blue')){
                         third.querySelector('.blue').textContent = third.querySelector('.blue').textContent - 1
                     }
+                    if (stageThreeDeckStack.length == 0) {
+                        stageTextThree.classList.add('done')
+                        }   
+                 } 
+                 if (stageThreeDeckStack.length == 0) {
+                    deck.classList.add('deactive')
                  }
-             
-
-         }
-
+             } 
         }
-
     })
 
