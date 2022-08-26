@@ -1,7 +1,9 @@
 // import {ancientsData} from './assets/ancients'
 
 import ancientsData from "./data/ancients.js";
-// import cardsDataBlue from "./data/mythicCardsData/blue/index.js";
+import cardsDataBlue from "./data/MythicCardsData/blue/index.js";
+import cardsDataBrown from "./data/MythicCardsData/brown/index.js";
+import cardsDataGreen from "./data/MythicCardsData/green/index.js";
 
 const ancientCard = document.querySelector('.ancients-container')
 const azathoth = document.getElementById('azathoth')
@@ -26,21 +28,26 @@ let isContainDifficulty = false;
 const shuffle = document.querySelector('.shuffle-button')
 const deckСontainer = document.querySelector('.deck-container')
 
+//Coaatt
+const first = document.querySelector('.first')
+const second = document.querySelector('.second')
+const third = document.querySelector('.third')
+
 let stageOneDeckStack = []
 let stageTwoDeckStack = []
 let stageThreeDeckStack = []
 
-let arrBlueSnow = ['blue3', 'blue4', 'blue5', 'blue10']
-let arrBlueNorml = ['blue7', 'blue9', 'blue11', 'blue12']
-let arrBlueOctopus= ['blue1', 'blue2', 'blue6', 'blue8']
+let arrBlueSnow = []
+let arrBlueNorml = []
+let arrBlueOctopus= []
 
-let arrBrownSnow = ['brown11', 'brown12', 'brown13', 'brown14', 'brown21']
-let arrBrownNorml= ['brown1', 'brown2', 'brown3', 'brown4', 'brown5', 'brown4', 'brown15', 'brown16', 'brown17', 'brown18', 'brown19', 'brown20']
-let arrBrownOctopus = ['brown6', 'brown7', 'brown8', 'brown9', 'brown10']
+let arrBrownSnow = []
+let arrBrownNorml= []
+let arrBrownOctopus = []
 
-let arrGreenSnow = ['green1', 'green16', 'green17', 'green18']
-let arrGreenNorml= ['green7', 'green8', 'green9', 'green10', 'green11', 'green13', 'green14', 'green15']
-let arrGreenOctopus = ['green2', 'green3', 'green4', 'green5', 'green6']
+let arrGreenSnow = []
+let arrGreenNorml= []
+let arrGreenOctopus = []
 
 function retry (){
     stageOneDeckStack.length = 0;
@@ -52,19 +59,18 @@ function retry (){
     stageTextTwo.classList.remove('done')
     stageTextThree.classList.remove('done')
 
-    arrBlueSnow = ['blue3', 'blue4', 'blue5', 'blue10'];
-    arrBlueNorml = ['blue7', 'blue9', 'blue11', 'blue12'];
-    arrBlueOctopus= ['blue1', 'blue2', 'blue6', 'blue8'];
+    arrBlueSnow = cardsDataBlue.filter(c =>c.difficulty == 'easy').map(function(c){return c.id});
+    arrBlueNorml = cardsDataBlue.filter(c =>c.difficulty == 'normal').map(function(c){return c.id});
+    arrBlueOctopus = cardsDataBlue.filter(c =>c.difficulty == 'hard').map(function(c){return c.id});
 
-    arrBrownSnow = ['brown11', 'brown12', 'brown13', 'brown14', 'brown21']
-    arrBrownNorml= ['brown1', 'brown2', 'brown3', 'brown4', 'brown5', 'brown4', 'brown15', 'brown16', 'brown17', 'brown18', 'brown19', 'brown20']
-    arrBrownOctopus = ['brown6', 'brown7', 'brown8', 'brown9', 'brown10']
+    arrBrownSnow = cardsDataBrown.filter(c =>c.difficulty == 'easy').map(function(c){return c.id});
+    arrBrownNorml = cardsDataBrown.filter(c =>c.difficulty == 'normal').map(function(c){return c.id});
+    arrBrownOctopus = cardsDataBrown.filter(c =>c.difficulty == 'hard').map(function(c){return c.id});
     
-    arrGreenSnow = ['green1', 'green16', 'green17', 'green18']
-    arrGreenNorml= ['green7', 'green8', 'green9', 'green10', 'green11', 'green13', 'green14', 'green15']
-    arrGreenOctopus = ['green2', 'green3', 'green4', 'green5', 'green6']
+    arrGreenSnow = cardsDataGreen.filter(c =>c.difficulty == 'easy').map(function(c){return c.id});
+    arrGreenNorml = cardsDataGreen.filter(c =>c.difficulty == 'normal').map(function(c){return c.id});
+    arrGreenOctopus = cardsDataGreen.filter(c =>c.difficulty == 'hard').map(function(c){return c.id});
 }
-
         ancientCard.addEventListener('click', function(event){
             let active = ancientCard.querySelector('.active');
             if(active) {
@@ -86,7 +92,9 @@ function retry (){
             
         });
 
-        difficultyLevel.addEventListener('click', function(event){
+        difficulty.forEach(
+        function (dif) {
+        dif.addEventListener('click', function(event){
             let active = difficultyLevel.querySelector('.active');
 
             if(active) {
@@ -96,8 +104,8 @@ function retry (){
               difficulty.forEach(function(e) {
                 if(e.classList.contains('active')) {
                     isContainDifficulty = true;
-          
                 }
+
               });
               if (isContainDifficulty) {
                 shuffle.classList.add('active');
@@ -105,17 +113,19 @@ function retry (){
                 retry ()
 
             }
-        });
+        });})
 
         shuffle.addEventListener('click', () => {
+            
+            {
             shuffle.classList.remove('active')
             deckСontainer.classList.add('active')
-            ancientCoat ();
-            // shuffleEnd()
+            mainShuffle();
+            
             console.log(stageOneDeckStack)
             console.log(stageTwoDeckStack)
-            console.log(stageThreeDeckStack)
-        });
+            console.log(stageThreeDeckStack)}
+         } );
 
 //общие основные функции
      
@@ -125,9 +135,9 @@ function retry (){
                   [array[i], array[j]] = [array[j], array[i]];
                 }
               }
-              
-function creatArrColor (arrayStage, arrColorSnow, arrColorNorml, arrColorOctopus, q) {
-    for (let i = 1; i<=q; i++){
+//Средний уроыень сложности
+function creatArrColorNormal (arrayStage, arrColorSnow, arrColorNorml, arrColorOctopus, q) {
+    for (let i = 1; i <= q; i++){
     let x = Math.floor(Math.random() * (4 - 1)) + 1
     if(x == 1){
         arrayStage.push(arrColorSnow.pop())
@@ -135,16 +145,24 @@ function creatArrColor (arrayStage, arrColorSnow, arrColorNorml, arrColorOctopus
     else if(x == 2){
         arrayStage.push(arrColorNorml.pop())
     }
-    else {
+    else if(x == 3) {
         arrayStage.push(arrColorOctopus.pop())
     } 
 }
 }
 
-//Coaatt
-const first = document.querySelector('.first')
-const second = document.querySelector('.second')
-const third = document.querySelector('.third')
+//Легкий уроыень сложности
+function creatArrColorEasy (arrayStage, arrColorSnow, arrColorNorml, arrColorOctopus, q) {
+    for (let i = 1; i <= q; i++){
+    let x = Math.floor(Math.random() * (3 - 1)) + 1
+    if(x == 1){
+        arrayStage.push(arrColorSnow.pop())
+    }
+    else if(x == 2){
+        arrayStage.push(arrColorNorml.pop())
+    }
+}
+}
 
 function Coaatt (i) {
    
@@ -159,6 +177,40 @@ function Coaatt (i) {
     third.querySelector('.blue').textContent = ancientsData[i].thirdStage.blueCards;
 
 }
+function createArrColor (createArr){
+    let CoatFirstGreen = first.querySelector('.green').textContent
+    let CoatFirstBrown = first.querySelector('.brown').textContent
+    let CoatFirstBlue = first.querySelector('.blue').textContent 
+    let CoatSecondGreen = second.querySelector('.green').textContent
+    let CoatSecondBrown = second.querySelector('.brown').textContent
+    let CoatSecondBlue = second.querySelector('.blue').textContent
+    let CoatThirdGreen = third.querySelector('.green').textContent
+    let CoatThirdBrown = third.querySelector('.brown').textContent
+    let CoatThirdBlue = third.querySelector('.blue').textContent
+                 //stage3
+                    //brown          
+                    createArr(stageThreeDeckStack, arrBrownSnow, arrBrownNorml, arrBrownOctopus, CoatThirdBrown)        
+                    //green
+                    createArr (stageThreeDeckStack, arrGreenSnow, arrGreenNorml, arrGreenOctopus, CoatThirdGreen)
+                    //blue
+                    createArr (stageThreeDeckStack, arrBlueSnow, arrBlueNorml, arrBlueOctopus, CoatThirdBlue)
+                //stage2
+                    //brown          
+                    createArr (stageTwoDeckStack, arrBrownSnow, arrBrownNorml, arrBrownOctopus, CoatSecondBrown)        
+                    //green
+                    createArr (stageTwoDeckStack, arrGreenSnow, arrGreenNorml, arrGreenOctopus, CoatSecondGreen)
+                    //blue
+                    createArr (stageTwoDeckStack, arrBlueSnow, arrBlueNorml, arrBlueOctopus, CoatSecondBlue)                       
+                //stage1
+                    //brown          
+                    createArr (stageOneDeckStack, arrBrownSnow, arrBrownNorml, arrBrownOctopus, CoatFirstBrown)        
+                    //green
+                    createArr (stageOneDeckStack, arrGreenSnow, arrGreenNorml, arrGreenOctopus, CoatFirstGreen)
+                    //blue
+                    createArr (stageOneDeckStack, arrBlueSnow, arrBlueNorml, arrBlueOctopus, CoatFirstBlue)   
+                            
+                    shuffleEnd()
+}
 
 function shuffleEnd() {
     shuffleArr(stageOneDeckStack)
@@ -168,44 +220,28 @@ function shuffleEnd() {
             //Coat stage
 
             function creatDeck (){
-                let CoatFirstGreen = first.querySelector('.green').textContent
-                let CoatFirstBrown = first.querySelector('.brown').textContent
-                let CoatFirstBlue = first.querySelector('.blue').textContent 
-                let CoatSecondGreen = second.querySelector('.green').textContent
-                let CoatSecondBrown = second.querySelector('.brown').textContent
-                let CoatSecondBlue = second.querySelector('.blue').textContent
-                let CoatThirdGreen = third.querySelector('.green').textContent
-                let CoatThirdBrown = third.querySelector('.brown').textContent
-                let CoatThirdBlue = third.querySelector('.blue').textContent
-                //stage3
-                    //brown          
-                            creatArrColor (stageThreeDeckStack, arrBrownSnow, arrBrownNorml, arrBrownOctopus, CoatThirdBrown)        
-                    //green
-                            creatArrColor (stageThreeDeckStack, arrGreenSnow, arrGreenNorml, arrGreenOctopus, CoatThirdGreen)
-                    //blue
-                            creatArrColor (stageThreeDeckStack, arrBlueSnow, arrBlueNorml, arrBlueOctopus, CoatThirdBlue)
-                //stage2
-                    //brown          
-                            creatArrColor (stageTwoDeckStack, arrBrownSnow, arrBrownNorml, arrBrownOctopus, CoatSecondBrown)        
-                    //green
-                            creatArrColor (stageTwoDeckStack, arrGreenSnow, arrGreenNorml, arrGreenOctopus, CoatSecondGreen)
-                    //blue
-                            creatArrColor (stageTwoDeckStack, arrBlueSnow, arrBlueNorml, arrBlueOctopus, CoatSecondBlue)                       
-                //stage1
-                    //brown          
-                            creatArrColor (stageOneDeckStack, arrBrownSnow, arrBrownNorml, arrBrownOctopus, CoatFirstBrown)        
-                    //green
-                            creatArrColor (stageOneDeckStack, arrGreenSnow, arrGreenNorml, arrGreenOctopus, CoatFirstGreen)
-                    //blue
-                            creatArrColor (stageOneDeckStack, arrBlueSnow, arrBlueNorml, arrBlueOctopus, CoatFirstBlue)   
-                            
-                            shuffleEnd()
-                            }  
 
-            function ancientCoat () {
+                difficulty.forEach(function(e) {
+                    if(e.contains(normal) && e.classList.contains('active')) {
+                        createArrColor (creatArrColorNormal)  
+                 }   else if(e.contains(easy) && e.classList.contains('active')) {
+                    createArrColor (creatArrColorEasy) 
+           
+         } }
+             
+             ) } 
+
+            function mainShuffle() {
                 shuffleArr(arrBrownSnow)
                 shuffleArr(arrBrownNorml)
                 shuffleArr(arrBrownOctopus)
+                shuffleArr(arrGreenSnow)
+                shuffleArr(arrGreenNorml)
+                shuffleArr(arrGreenOctopus)
+                shuffleArr(arrBlueSnow)
+                shuffleArr(arrBlueNorml)
+                shuffleArr(arrBlueOctopus)
+                
                 ancientCards.forEach(function(e) {
                     if(e.contains(azathoth) && e.classList.contains('active')) {
                         Coaatt (0);
@@ -277,4 +313,3 @@ function shuffleEnd() {
              } 
         }
     })
-
