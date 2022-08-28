@@ -109,6 +109,10 @@ function retry (){
     arrGreenEasy = cardsDataGreen.filter(c =>c.difficulty == 'easy').map(function(c){return c.id})
     arrBlueEasy = cardsDataBlue.filter(c =>c.difficulty == 'easy').map(function(c){return c.id})
 
+    shuffleArr(arrBrownNormal)
+    shuffleArr(arrGreenNormal)
+    shuffleArr(arrBlueNormal)
+
     arrBrownSuperEasyStart = [...arrBrownEasy, ...arrBrownNormal] //Для  очень легкой йсложности
     arrGreenSuperEasyStart = [...arrGreenEasy, ...arrGreenNormal]
     arrBlueSuperEasyStart = [...arrBlueEasy, ...arrBlueNormal]
@@ -314,7 +318,9 @@ function shuffleEnd() {
             })}
 
         deck.addEventListener('click', function(){
+            
          if (stageOneDeckStack.length > 0){
+            
             let lastImg = stageOneDeckStack.pop();
             lastCard.style.backgroundImage = `url(./assets/MythicCards/allcards/${lastImg}.png)`
             if(lastImg.includes('green')){
@@ -328,6 +334,7 @@ function shuffleEnd() {
             }
          if (stageOneDeckStack.length == 0) {
             stageTextOne.classList.add('done')
+            
          }
          }
          else {
