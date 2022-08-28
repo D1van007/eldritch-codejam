@@ -236,7 +236,7 @@ function createArrColor (createArr){
     let CoatThirdBrown = third.querySelector('.brown').textContent
     let CoatThirdBlue = third.querySelector('.blue').textContent
 
-             createArr (stageThreeDeckStack, arrпшее Brown, arrBrownForEasy, arrBrownForHard, arrBrownHard, arrBrownNormal, arrBrownEasy, arrBrownSuperEasy, arrBrownSuperHard, CoatThirdBrown)  //stage3   
+             createArr (stageThreeDeckStack, arrBrown, arrBrownForEasy, arrBrownForHard, arrBrownHard, arrBrownNormal, arrBrownEasy, arrBrownSuperEasy, arrBrownSuperHard, CoatThirdBrown)  //stage3   
              createArr (stageThreeDeckStack, arrGreen, arrGreenForEasy, arrGreenForHard, arrGreenHard, arrGreenNormal, arrGreenEasy, arrGreenSuperEasy, arrGreenSuperHard, CoatThirdGreen)  //stage3   
              createArr (stageThreeDeckStack, arrBlue, arrBlueForEasy, arrBlueForHard, arrBlueHard, arrBlueNormal, arrBlueEasy, arrBlueSuperEasy, arrBlueSuperHard, CoatThirdBlue)   //stage3   
 
