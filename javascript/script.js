@@ -322,7 +322,7 @@ function shuffleEnd() {
          if (stageOneDeckStack.length > 0){
             
             let lastImg = stageOneDeckStack.pop();
-            lastCard.style.backgroundImage = `url(./assets/MythicCards/allcards/${lastImg}.png)`
+            lastCard.style.backgroundImage = `url(./assets/MythicCards/allcards/${lastImg}.jpeg)`
             if(lastImg.includes('green')){
                 first.querySelector('.green').textContent = first.querySelector('.green').textContent - 1
             }
@@ -340,7 +340,7 @@ function shuffleEnd() {
          else {
             if (stageTwoDeckStack.length > 0){
                 let lastImg = stageTwoDeckStack.pop();
-                lastCard.style.backgroundImage = `url(./assets/MythicCards/allcards/${lastImg}.png)`
+                lastCard.style.backgroundImage = `url(./assets/MythicCards/allcards/${lastImg}.jpeg)`
                 if(lastImg.includes('green')){
                     second.querySelector('.green').textContent = second.querySelector('.green').textContent - 1
                 }
@@ -356,7 +356,7 @@ function shuffleEnd() {
              } else {
                 if (stageThreeDeckStack.length > 0){
                     let lastImg = stageThreeDeckStack.pop();
-                    lastCard.style.backgroundImage = `url(./assets/MythicCards/allcards/${lastImg}.png)`
+                    lastCard.style.backgroundImage = `url(./assets/MythicCards/allcards/${lastImg}.jpeg)`
                     if(lastImg.includes('green')){
                         third.querySelector('.green').textContent = third.querySelector('.green').textContent - 1
                     }
