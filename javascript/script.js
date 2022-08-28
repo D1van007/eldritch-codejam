@@ -1,5 +1,3 @@
-// import {ancientsData} from './assets/ancients'
-
 import ancientsData from "./data/ancients.js";
 import cardsDataBlue from "./data/MythicCardsData/blue/index.js";
 import cardsDataBrown from "./data/MythicCardsData/brown/index.js";
@@ -28,7 +26,6 @@ let isContainDifficulty = false;
 const shuffle = document.querySelector('.shuffle-button')
 const deckСontainer = document.querySelector('.deck-container')
 
-//Coaatt
 const first = document.querySelector('.first')
 const second = document.querySelector('.second')
 const third = document.querySelector('.third')
@@ -37,17 +34,46 @@ let stageOneDeckStack = []
 let stageTwoDeckStack = []
 let stageThreeDeckStack = []
 
-let arrBlueSnow = []
-let arrBlueNorml = []
-let arrBlueOctopus= []
+let arrBrown = []
+let arrBlue = []
+let arrGreen = []
 
-let arrBrownSnow = []
-let arrBrownNorml= []
-let arrBrownOctopus = []
+let arrBrownForEasy = []
+let arrGreenForEasy = []
+let arrBlueForEasy = []
 
-let arrGreenSnow = []
-let arrGreenNorml= []
-let arrGreenOctopus = []
+let arrBrownForHard = []
+let arrGreenForHard = []
+let arrBlueForHard = []
+
+let arrBrownHard = []
+let arrGreenHard = []
+let arrBlueHard = []
+
+let arrBrownNormal = []
+let arrGreenNormal = []
+let arrBlueNormal = []
+
+let arrBrownEasy = []
+let arrGreenEasy = []
+let arrBlueEasy = []
+
+let arrBrownSuperEasyStart = []
+let arrGreenSuperEasyStart = []
+let arrBlueSuperEasyStart = []
+
+let arrBrownSuperEasy = []
+let arrGreenSuperEasy = []
+let arrBlueSuperEasy = []
+
+let arrBrownSuperHardStart = []
+let arrGreenSuperHardStart = []
+let arrBlueSuperHardStart = []
+
+let arrBrownSuperHard = []
+let arrGreenSuperHard = []
+let arrBlueSuperHard = []
+
 
 function retry (){
     stageOneDeckStack.length = 0;
@@ -59,17 +85,38 @@ function retry (){
     stageTextTwo.classList.remove('done')
     stageTextThree.classList.remove('done')
 
-    arrBlueSnow = cardsDataBlue.filter(c =>c.difficulty == 'easy').map(function(c){return c.id});
-    arrBlueNorml = cardsDataBlue.filter(c =>c.difficulty == 'normal').map(function(c){return c.id});
-    arrBlueOctopus = cardsDataBlue.filter(c =>c.difficulty == 'hard').map(function(c){return c.id});
+    arrBrown = cardsDataBrown.map(function(c){return c.id}) //Для средней сложности
+    arrGreen = cardsDataGreen.map(function(c){return c.id})
+    arrBlue = cardsDataBlue.map(function(c){return c.id})
 
-    arrBrownSnow = cardsDataBrown.filter(c =>c.difficulty == 'easy').map(function(c){return c.id});
-    arrBrownNorml = cardsDataBrown.filter(c =>c.difficulty == 'normal').map(function(c){return c.id});
-    arrBrownOctopus = cardsDataBrown.filter(c =>c.difficulty == 'hard').map(function(c){return c.id});
-    
-    arrGreenSnow = cardsDataGreen.filter(c =>c.difficulty == 'easy').map(function(c){return c.id});
-    arrGreenNorml = cardsDataGreen.filter(c =>c.difficulty == 'normal').map(function(c){return c.id});
-    arrGreenOctopus = cardsDataGreen.filter(c =>c.difficulty == 'hard').map(function(c){return c.id});
+    arrBrownForEasy = cardsDataBrown.filter(c =>c.difficulty !== 'hard').map(function(c){return c.id}) //Для легкой сложности
+    arrGreenForEasy = cardsDataGreen.filter(c =>c.difficulty !== 'hard').map(function(c){return c.id})
+    arrBlueForEasy = cardsDataBlue.filter(c =>c.difficulty !== 'hard').map(function(c){return c.id})
+
+    arrBrownForHard = cardsDataBrown.filter(c =>c.difficulty !== 'easy').map(function(c){return c.id}) //Для высокой сложности
+    arrGreenForHard = cardsDataGreen.filter(c =>c.difficulty !== 'easy').map(function(c){return c.id})
+    arrBlueForHard = cardsDataBlue.filter(c =>c.difficulty !== 'easy').map(function(c){return c.id})
+
+    arrBrownNormal = cardsDataBrown.filter(c =>c.difficulty == 'normal').map(function(c){return c.id}) //Для очень высокой и очень легкой сложности - ниже из них общий массив
+    arrGreenNormal = cardsDataGreen.filter(c =>c.difficulty == 'normal').map(function(c){return c.id})
+    arrBlueNormal = cardsDataBlue.filter(c =>c.difficulty == 'normal').map(function(c){return c.id})
+
+    arrBrownHard = cardsDataBrown.filter(c =>c.difficulty == 'hard').map(function(c){return c.id}) //Для очень высокой сложности
+    arrGreenHard = cardsDataGreen.filter(c =>c.difficulty == 'hard').map(function(c){return c.id})
+    arrBlueHard = cardsDataBlue.filter(c =>c.difficulty == 'hard').map(function(c){return c.id})
+
+    arrBrownEasy = cardsDataBrown.filter(c =>c.difficulty == 'easy').map(function(c){return c.id})//Для  очень легкой йсложности
+    arrGreenEasy = cardsDataGreen.filter(c =>c.difficulty == 'easy').map(function(c){return c.id})
+    arrBlueEasy = cardsDataBlue.filter(c =>c.difficulty == 'easy').map(function(c){return c.id})
+
+    arrBrownSuperEasyStart = [...arrBrownEasy, ...arrBrownNormal] //Для  очень легкой йсложности
+    arrGreenSuperEasyStart = [...arrGreenEasy, ...arrGreenNormal]
+    arrBlueSuperEasyStart = [...arrBlueEasy, ...arrBlueNormal]
+
+    arrBrownSuperHardStart = [...arrBrownHard, ...arrBrownNormal] //Для очень высокой сложности
+    arrGreenSuperHardStart = [...arrGreenHard, ...arrGreenNormal]
+    arrBlueSuperHardStart = [...arrBlueHard, ...arrBlueNormal]
+  
 }
         ancientCard.addEventListener('click', function(event){
             let active = ancientCard.querySelector('.active');
@@ -111,61 +158,62 @@ function retry (){
                 shuffle.classList.add('active');
                 deckСontainer.classList.remove('active')
                 retry ()
-
             }
         });})
 
         shuffle.addEventListener('click', () => {
-            
-            {
             shuffle.classList.remove('active')
             deckСontainer.classList.add('active')
             mainShuffle();
-            
             console.log(stageOneDeckStack)
             console.log(stageTwoDeckStack)
-            console.log(stageThreeDeckStack)}
+            console.log(stageThreeDeckStack)
+            
          } );
 
 //общие основные функции
-     
             function shuffleArr(array) {
                 for (let i = array.length - 1; i > 0; i--) {
                   let j = Math.floor(Math.random() * (i + 1));
                   [array[i], array[j]] = [array[j], array[i]];
-                }
-              }
-//Средний уроыень сложности
-function creatArrColorNormal (arrayStage, arrColorSnow, arrColorNorml, arrColorOctopus, q) {
+                 
+                }}
+//Средний уровень сложности
+function createArrStageNormal (arrayStage, arrColor, arrColorForEasy, arrColorForHard, arrColorHard, arrColorNormal, arrColorEasy, arrColorSuperEasy, arrColorSuperHard, q) {
     for (let i = 1; i <= q; i++){
-    let x = Math.floor(Math.random() * (4 - 1)) + 1
-    if(x == 1){
-        arrayStage.push(arrColorSnow.pop())
-    }
-    else if(x == 2){
-        arrayStage.push(arrColorNorml.pop())
-    }
-    else if(x == 3) {
-        arrayStage.push(arrColorOctopus.pop())
-    } 
-}
-}
+        shuffleArr(arrColor)
+        arrayStage.push(arrColor.pop())
+}}
 
-//Легкий уроыень сложности
-function creatArrColorEasy (arrayStage, arrColorSnow, arrColorNorml, arrColorOctopus, q) {
+//Легкий уровень сложности
+function creatArrColorEasy (arrayStage, arrColor, arrColorForEasy, arrColorForHard, arrColorHard, arrColorNormal, arrColorEasy, arrColorSuperEasy, arrColorSuperHard,q) {
     for (let i = 1; i <= q; i++){
-    let x = Math.floor(Math.random() * (3 - 1)) + 1
-    if(x == 1){
-        arrayStage.push(arrColorSnow.pop())
-    }
-    else if(x == 2){
-        arrayStage.push(arrColorNorml.pop())
-    }
-}
-}
+        shuffleArr(arrColorForEasy)
+        arrayStage.push(arrColorForEasy.pop())
+}}
+//Высокий уровень сложности
+function creatArrColorHard (arrayStage, arrColor, arrColorForEasy, arrColorForHard, arrColorHard, arrColorNormal, arrColorEasy, arrColorSuperEasy, arrColorSuperHard,q) {
+    for (let i = 1; i <= q; i++){
+        shuffleArr(arrColorForHard)
+        arrayStage.push(arrColorForHard.pop())
+}}
+
+//Супер сложный уровень сложности
+function creatArrColorSuperHard (arrayStage, arrColor, arrColorForEasy, arrColorForHard, arrColorHard, arrColorNormal, arrColorEasy, arrColorSuperEasy, arrColorSuperHard,q) {
+    for (let i = 1; i <= q; i++){
+        shuffleArr(arrColorSuperHard)
+        arrayStage.push(arrColorSuperHard.pop())
+}}
+
+//Супер легкий уровень сложности
+function creatArrColorSuperEasy (arrayStage, arrColor, arrColorForEasy, arrColorForHard, arrColorHard, arrColorNormal, arrColorEasy, arrColorSuperEasy, arrColorSuperHard, q) {
+    for (let i = 1; i <= q; i++){
+        shuffleArr(arrColorSuperEasy)
+        arrayStage.push(arrColorSuperEasy.pop())
+
+}}
 
 function Coaatt (i) {
-   
     first.querySelector('.green').textContent = ancientsData[i].firstStage.greenCards;
     first.querySelector('.brown').textContent = ancientsData[i].firstStage.brownCards;
     first.querySelector('.blue').textContent = ancientsData[i].firstStage.blueCards;
@@ -175,8 +223,8 @@ function Coaatt (i) {
     third.querySelector('.green').textContent = ancientsData[i].thirdStage.greenCards;
     third.querySelector('.brown').textContent = ancientsData[i].thirdStage.brownCards;
     third.querySelector('.blue').textContent = ancientsData[i].thirdStage.blueCards;
-
 }
+
 function createArrColor (createArr){
     let CoatFirstGreen = first.querySelector('.green').textContent
     let CoatFirstBrown = first.querySelector('.brown').textContent
@@ -187,29 +235,20 @@ function createArrColor (createArr){
     let CoatThirdGreen = third.querySelector('.green').textContent
     let CoatThirdBrown = third.querySelector('.brown').textContent
     let CoatThirdBlue = third.querySelector('.blue').textContent
-                 //stage3
-                    //brown          
-                    createArr(stageThreeDeckStack, arrBrownSnow, arrBrownNorml, arrBrownOctopus, CoatThirdBrown)        
-                    //green
-                    createArr (stageThreeDeckStack, arrGreenSnow, arrGreenNorml, arrGreenOctopus, CoatThirdGreen)
-                    //blue
-                    createArr (stageThreeDeckStack, arrBlueSnow, arrBlueNorml, arrBlueOctopus, CoatThirdBlue)
-                //stage2
-                    //brown          
-                    createArr (stageTwoDeckStack, arrBrownSnow, arrBrownNorml, arrBrownOctopus, CoatSecondBrown)        
-                    //green
-                    createArr (stageTwoDeckStack, arrGreenSnow, arrGreenNorml, arrGreenOctopus, CoatSecondGreen)
-                    //blue
-                    createArr (stageTwoDeckStack, arrBlueSnow, arrBlueNorml, arrBlueOctopus, CoatSecondBlue)                       
-                //stage1
-                    //brown          
-                    createArr (stageOneDeckStack, arrBrownSnow, arrBrownNorml, arrBrownOctopus, CoatFirstBrown)        
-                    //green
-                    createArr (stageOneDeckStack, arrGreenSnow, arrGreenNorml, arrGreenOctopus, CoatFirstGreen)
-                    //blue
-                    createArr (stageOneDeckStack, arrBlueSnow, arrBlueNorml, arrBlueOctopus, CoatFirstBlue)   
-                            
-                    shuffleEnd()
+
+             createArr (stageThreeDeckStack, arrпшее Brown, arrBrownForEasy, arrBrownForHard, arrBrownHard, arrBrownNormal, arrBrownEasy, arrBrownSuperEasy, arrBrownSuperHard, CoatThirdBrown)  //stage3   
+             createArr (stageThreeDeckStack, arrGreen, arrGreenForEasy, arrGreenForHard, arrGreenHard, arrGreenNormal, arrGreenEasy, arrGreenSuperEasy, arrGreenSuperHard, CoatThirdGreen)  //stage3   
+             createArr (stageThreeDeckStack, arrBlue, arrBlueForEasy, arrBlueForHard, arrBlueHard, arrBlueNormal, arrBlueEasy, arrBlueSuperEasy, arrBlueSuperHard, CoatThirdBlue)   //stage3   
+
+             createArr (stageTwoDeckStack, arrBrown, arrBrownForEasy, arrBrownForHard, arrBrownHard, arrBrownNormal, arrBrownEasy, arrBrownSuperEasy, arrBrownSuperHard, CoatSecondBrown)   //stage2  
+             createArr (stageTwoDeckStack, arrGreen, arrGreenForEasy, arrGreenForHard, arrGreenHard, arrGreenNormal, arrGreenEasy, arrGreenSuperEasy, arrGreenSuperHard, CoatSecondGreen)   //stage2  
+             createArr (stageTwoDeckStack, arrBlue, arrBlueForEasy, arrBlueForHard, arrBlueHard, arrBlueNormal, arrBlueEasy, arrBlueSuperEasy, arrBlueSuperHard, CoatSecondBlue)   //stage2  
+
+             createArr (stageOneDeckStack, arrBrown, arrBrownForEasy, arrBrownForHard, arrBrownHard, arrBrownNormal, arrBrownEasy, arrBrownSuperEasy, arrBrownSuperHard, CoatFirstBrown)   //stage1
+             createArr (stageOneDeckStack, arrGreen, arrGreenForEasy, arrGreenForHard, arrGreenHard, arrGreenNormal, arrGreenEasy, arrGreenSuperEasy, arrGreenSuperHard, CoatFirstGreen)   //stage1
+             createArr (stageOneDeckStack, arrBlue, arrBlueForEasy, arrBlueForHard, arrBlueHard, arrBlueNormal, arrBlueEasy, arrBlueSuperEasy, arrBlueSuperHard, CoatFirstBlue)   //stage1
+                               
+        shuffleEnd()    
 }
 
 function shuffleEnd() {
@@ -217,42 +256,59 @@ function shuffleEnd() {
     shuffleArr(stageTwoDeckStack)
     shuffleArr(stageThreeDeckStack)
   }   
-            //Coat stage
-
+            
             function creatDeck (){
-
                 difficulty.forEach(function(e) {
                     if(e.contains(normal) && e.classList.contains('active')) {
-                        createArrColor (creatArrColorNormal)  
+                        createArrColor (createArrStageNormal)  
                  }   else if(e.contains(easy) && e.classList.contains('active')) {
-                    createArrColor (creatArrColorEasy) 
-           
-         } }
-             
-             ) } 
+                        createArrColor (creatArrColorEasy)     
+                 }  else if(e.contains(hard) && e.classList.contains('active')) {
+                    createArrColor (creatArrColorHard)     
+                 } else if(e.contains(superHard) && e.classList.contains('active')) {
+                    createArrColor (creatArrColorSuperHard)     
+                 } else if(e.contains(superEasy) && e.classList.contains('active')) {
+                    createArrColor (creatArrColorSuperEasy)     
+                 }    
+                } ) } 
 
             function mainShuffle() {
-                shuffleArr(arrBrownSnow)
-                shuffleArr(arrBrownNorml)
-                shuffleArr(arrBrownOctopus)
-                shuffleArr(arrGreenSnow)
-                shuffleArr(arrGreenNorml)
-                shuffleArr(arrGreenOctopus)
-                shuffleArr(arrBlueSnow)
-                shuffleArr(arrBlueNorml)
-                shuffleArr(arrBlueOctopus)
                 
                 ancientCards.forEach(function(e) {
                     if(e.contains(azathoth) && e.classList.contains('active')) {
+                        arrBrownSuperEasy = arrBrownSuperEasyStart.slice(0,9)
+                        arrGreenSuperEasy = arrGreenSuperEasyStart.slice(0,5)
+                        arrBlueSuperEasy = arrBlueSuperEasyStart.slice(0,2)
+                        arrBrownSuperHard = arrBrownSuperHardStart.slice(0,9)
+                        arrGreenSuperHard = arrGreenSuperHardStart.slice(0,5)
+                        arrBlueSuperHard = arrBlueSuperHardStart.slice(0,2)
                         Coaatt (0);
                         creatDeck () } 
                     if(e.contains(cthulthu) && e.classList.contains('active')) {
+                        arrBrownSuperEasy = arrBrownSuperEasyStart.slice(0,9)
+                        arrGreenSuperEasy = arrGreenSuperEasyStart.slice(0,4)
+                        arrBlueSuperEasy = arrBlueSuperEasyStart.slice(0,2)
+                        arrBrownSuperHard = arrBrownSuperHardStart.slice(0,9)
+                        arrGreenSuperHard = arrGreenSuperHardStart.slice(0,4)
+                        arrBlueSuperHard = arrBlueSuperHardStart.slice(0,2)
                         Coaatt (1);
                         creatDeck ()}
                     if(e.contains(iogSothoth) && e.classList.contains('active')) {
+                        arrBrownSuperEasy = arrBrownSuperEasyStart.slice(0,9)
+                        arrGreenSuperEasy = arrGreenSuperEasyStart.slice(0,5)
+                        arrBlueSuperEasy = arrBlueSuperEasyStart.slice(0,2)
+                        arrBrownSuperHard = arrBrownSuperHardStart.slice(0,9)
+                        arrGreenSuperHard = arrGreenSuperHardStart.slice(0,5)
+                        arrBlueSuperHard = arrBlueSuperHardStart.slice(0,2)
                         Coaatt (2);
                         creatDeck ()}
                     if(e.contains(shubNiggurath) && e.classList.contains('active')) {
+                        arrBrownSuperEasy = arrBrownSuperEasyStart.slice(0,8)
+                        arrGreenSuperEasy = arrGreenSuperEasyStart.slice(0,6)
+                        arrBlueSuperEasy = arrBlueSuperEasyStart.slice(0,2)
+                        arrBrownSuperHard = arrBrownSuperHardStart.slice(0,8)
+                        arrGreenSuperHard = arrGreenSuperHardStart.slice(0,6)
+                        arrBlueSuperHard = arrBlueSuperHardStart.slice(0,2)
                         Coaatt (3);
                         creatDeck ()}  
             })}
